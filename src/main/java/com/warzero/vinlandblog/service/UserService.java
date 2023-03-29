@@ -6,4 +6,6 @@ import com.warzero.vinlandblog.domain.User;
 
 public interface UserService extends IService<User> {
     ResponseResult getUserInfo();
+
+    ResponseResult getAdminInfo();
 }

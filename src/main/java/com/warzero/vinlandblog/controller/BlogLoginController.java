@@ -2,7 +2,7 @@ package com.warzero.vinlandblog.controller;
 
 
 import com.warzero.vinlandblog.common.ResponseResult;
-import com.warzero.vinlandblog.constant.VinlandConstant;
+import com.warzero.vinlandblog.constants.VinlandConstant;
 import com.warzero.vinlandblog.domain.User;
 import com.warzero.vinlandblog.domain.dto.LoginUserDTO;
 import com.warzero.vinlandblog.service.BlogLoginService;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Method;
 
 @RestController
 @Slf4j

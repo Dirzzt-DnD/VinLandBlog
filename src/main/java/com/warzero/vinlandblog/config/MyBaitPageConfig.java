@@ -15,11 +15,4 @@ public class MyBaitPageConfig {
         mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return mybatisPlusInterceptor;
     }
-
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer(){
-        MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        scannerConfigurer.setBasePackage("com.warzero.vinlandblog.mapper");
-        return scannerConfigurer;
-    }
 }

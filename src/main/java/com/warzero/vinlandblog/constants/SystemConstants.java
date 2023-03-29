@@ -25,4 +25,6 @@ public class SystemConstants {
      * Redis 用户 id 的前奏
      */
     public static final String REDIS_USER_ID_PREFIX = "bloglogin:";
+
+    public static final String ADMIN_USER = "1";
 }

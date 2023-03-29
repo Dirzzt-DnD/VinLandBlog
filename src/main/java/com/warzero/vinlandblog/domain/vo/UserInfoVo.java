@@ -8,9 +8,11 @@ public class UserInfoVo {
 
     private String nickName;
 
+    private String motto;
+
     private String avatar;
 
-    private String sex;
+    private String gender;
 
     private String email;
 }

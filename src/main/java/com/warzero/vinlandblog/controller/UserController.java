@@ -1,7 +1,7 @@
 package com.warzero.vinlandblog.controller;
 
 import com.warzero.vinlandblog.common.ResponseResult;
-import com.warzero.vinlandblog.constant.VinlandConstant;
+import com.warzero.vinlandblog.constants.VinlandConstant;
 import com.warzero.vinlandblog.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -24,5 +24,10 @@ public class UserController {
     @RequestMapping(value = REQUEST_MODEL+"/userInfo", method = RequestMethod.GET)
     public ResponseResult getUserInfo(){
        return userService.getUserInfo();
+    }
+
+    @RequestMapping(value = REQUEST_MODEL+"/adminInfo",method = RequestMethod.GET)
+    public ResponseResult getAdminIfo(){
+        return userService.getAdminInfo();
     }
 }

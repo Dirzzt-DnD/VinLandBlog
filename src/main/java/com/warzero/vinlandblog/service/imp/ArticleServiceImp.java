@@ -7,12 +7,14 @@ import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.SystemConstants;
 import com.warzero.vinlandblog.domain.Article;
 import com.warzero.vinlandblog.domain.Category;
+import com.warzero.vinlandblog.domain.vo.ArticleCountVo;
 import com.warzero.vinlandblog.domain.vo.ArticleDetailsVo;
 import com.warzero.vinlandblog.domain.vo.ArticleListVo;
 import com.warzero.vinlandblog.domain.vo.HotArticleVo;
 import com.warzero.vinlandblog.domain.vo.PageVo;
 import com.warzero.vinlandblog.mapper.ArticleMapper;
 import com.warzero.vinlandblog.mapper.CategoryMapper;
+import com.warzero.vinlandblog.mapper.TagMapper;
 import com.warzero.vinlandblog.service.ArticleService;
 import com.warzero.vinlandblog.service.CategoryService;
 import com.warzero.vinlandblog.utils.BeanCopyUtils;
@@ -25,11 +27,12 @@ import java.util.Objects;
 @Service
 public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implements ArticleService {
 
-    @Autowired
-    private CategoryService categoryService;
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private TagMapper tagMapper;
 
     @Override
     public ResponseResult hotArticle() {
@@ -78,13 +81,22 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
         ArticleDetailsVo articleDetailsVO = BeanCopyUtils.copyBean(article, ArticleDetailsVo.class);
 
         // 设置分类名称
-        Category category = categoryService.getById(article.getCategoryId());
+        Category category = categoryMapper.selectById(article.getCategoryId());
         if (category != null) {
             articleDetailsVO.setCategoryName(category.getName());
         }
 
         return ResponseResult.okResult(articleDetailsVO);
 
+    }
+
+    @Override
+    public ResponseResult articleCount() {
+
+        Long article = count();
+        Long category = categoryMapper.selectCount(null);
+        Long tag = tagMapper.selectCount(null);
+        return ResponseResult.okResult(new ArticleCountVo(article,category,tag));
     }
 
 }

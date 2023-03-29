@@ -1,7 +1,9 @@
 package com.warzero.vinlandblog.service.imp;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.warzero.vinlandblog.common.ResponseResult;
+import com.warzero.vinlandblog.constants.SystemConstants;
 import com.warzero.vinlandblog.domain.User;
 import com.warzero.vinlandblog.domain.vo.UserInfoVo;
 import com.warzero.vinlandblog.mapper.UserMapper;
@@ -23,6 +25,14 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
     public ResponseResult getUserInfo() {
         Long userId = SecurityUtils.getUserId();
         User user = userMapper.getAllById(userId);
+        return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserInfoVo.class));
+    }
+
+    @Override
+    public ResponseResult getAdminInfo() {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getType, SystemConstants.ADMIN_USER);
+        User user = getOne(wrapper,false);
         return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserInfoVo.class));
     }
 }

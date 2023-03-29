@@ -21,18 +21,18 @@ public class User implements Serializable {
     @Schema(description = "用户名")
     private String userName;
 
-    @NotBlank(message = "昵称不能为空")
+
     @Schema(description = "昵称")
     private String nickName;
 
     @Schema(description = "个性签名")
-    private String signature;
+    private String motto;
 
     @NotBlank(message = "密码不能为空")
     @Schema(description = "密码")
     private String password;
 
-    @Schema(description = "1:普通用户 0:管理员")
+    @Schema(description = "0:普通用户 1:管理员")
     private String type;
 
     @Schema(description = "0:正常 1:停用")
@@ -45,7 +45,7 @@ public class User implements Serializable {
     private String phonenumber;
 
     @Schema(description = "0:男 1:女 2:未知")
-    private String sex;
+    private String gender;
 
     @Schema(description = "头像")
     private String avatar;

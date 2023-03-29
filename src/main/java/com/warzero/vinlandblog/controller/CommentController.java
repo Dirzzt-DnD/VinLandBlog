@@ -1,7 +1,7 @@
 package com.warzero.vinlandblog.controller;
 
 import com.warzero.vinlandblog.common.ResponseResult;
-import com.warzero.vinlandblog.constant.VinlandConstant;
+import com.warzero.vinlandblog.constants.VinlandConstant;
 import com.warzero.vinlandblog.domain.Comment;
 import com.warzero.vinlandblog.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
