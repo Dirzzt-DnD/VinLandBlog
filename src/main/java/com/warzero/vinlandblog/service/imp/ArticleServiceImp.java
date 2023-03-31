@@ -10,13 +10,11 @@ import com.warzero.vinlandblog.domain.Category;
 import com.warzero.vinlandblog.domain.vo.ArticleCountVo;
 import com.warzero.vinlandblog.domain.vo.ArticleDetailsVo;
 import com.warzero.vinlandblog.domain.vo.ArticleListVo;
-import com.warzero.vinlandblog.domain.vo.HotArticleVo;
 import com.warzero.vinlandblog.domain.vo.PageVo;
 import com.warzero.vinlandblog.mapper.ArticleMapper;
 import com.warzero.vinlandblog.mapper.CategoryMapper;
 import com.warzero.vinlandblog.mapper.TagMapper;
 import com.warzero.vinlandblog.service.ArticleService;
-import com.warzero.vinlandblog.service.CategoryService;
 import com.warzero.vinlandblog.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,11 +40,11 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
         wrapper.orderByDesc(Article::getViewCount);
         // wrapper.last("limit 10");
 
-        Page<Article> page = new Page<>(1, 2);
+        Page<Article> page = new Page<>(1, 5);
         this.page(page, wrapper);
 
         List<Article> records = page.getRecords();
-        return ResponseResult.okResult(BeanCopyUtils.copyBeanList(records, HotArticleVo.class));
+        return ResponseResult.okResult(records);
     }
 
     @Override
@@ -64,11 +62,11 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
         List<Article> articles = page.getRecords();
 
         // 设置文章分类名
-        List<Category> categories = categoryMapper.list(new Category());
-        for (Article article : articles) {;
-            String categoryName = categories.stream().filter(o -> Objects.equals(o.getId(),article.getCategoryId())).findAny().orElse(null).getName();
-            article.setCategoryName(categoryName);
-        }
+//        List<Category> categories = categoryMapper.list(new Category());
+//        for (Article article : articles) {;
+//            String categoryName = categories.stream().filter(o -> Objects.equals(o.getId(),article.getCategoryId())).findAny().orElse(null).getName();
+//            article.setCategoryName(categoryName);
+//        }
 
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(articles, ArticleListVo.class);
         return ResponseResult.okResult(new PageVo<ArticleListVo>(page.getTotal(), articleListVos));
