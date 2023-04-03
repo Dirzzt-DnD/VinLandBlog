@@ -61,12 +61,11 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
         this.page(page, wrapper);
         List<Article> articles = page.getRecords();
 
-        // 设置文章分类名
-//        List<Category> categories = categoryMapper.list(new Category());
-//        for (Article article : articles) {;
-//            String categoryName = categories.stream().filter(o -> Objects.equals(o.getId(),article.getCategoryId())).findAny().orElse(null).getName();
-//            article.setCategoryName(categoryName);
-//        }
+        List<Category> categories = categoryMapper.list(new Category());
+        for (Article article : articles) {;
+            String categoryName = categories.stream().filter(o -> Objects.equals(o.getId(),article.getCategoryId())).findAny().orElse(null).getName();
+            article.setCategoryName(categoryName);
+        }
 
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(articles, ArticleListVo.class);
         return ResponseResult.okResult(new PageVo<ArticleListVo>(page.getTotal(), articleListVos));

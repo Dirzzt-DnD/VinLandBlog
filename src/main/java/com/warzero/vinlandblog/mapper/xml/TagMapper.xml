@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.warzero.vinlandblog.mapper.TagMapper">
+    <select id="listArticleTagCount" resultType="com.warzero.vinlandblog.domain.vo.TagVo">
+             SELECT
+               t1.id, t1.name, t2.count
+              FROM
+              tag t1
+              LEFT JOIN
+              (SELECT
+                  tag_id, COUNT(*) AS count
+               FROM
+                  article_tag atag
+               left join article a on atag.article_id = a.id
+               WHERE a.status = 0
+               GROUP BY tag_id) t2 ON t2.tag_id = t1.id
+    </select>
 </mapper>

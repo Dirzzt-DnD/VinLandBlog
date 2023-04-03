@@ -1,5 +1,6 @@
 package com.warzero.vinlandblog.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,4 +20,7 @@ public class ArticleTag implements Serializable {
 
     @Schema(description = "标签id")
     private Long tagId;
+
+    @TableField(exist = false)
+    private Integer count;
 }

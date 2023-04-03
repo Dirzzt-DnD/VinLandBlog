@@ -26,20 +26,10 @@ import java.util.stream.Collectors;
 public class CategoryServiceImp extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
     @Autowired
-    private ArticleMapper articleMapper;
+    private CategoryMapper categoryMapper;
 
     @Override
     public ResponseResult getCategoryList() {
-        LambdaQueryWrapper<Article> articleQuery = new LambdaQueryWrapper<>();
-        articleQuery.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
-        List<Article> articles = articleMapper.selectList(articleQuery);
-
-        Set<Long> categoryIds = articles.stream().map(Article::getCategoryId).collect(Collectors.toSet());
-        // 从数据库中查询目录
-        LambdaQueryWrapper<Category> categoryQuery = new LambdaQueryWrapper<>();
-        categoryQuery.in(Category::getId, categoryIds);
-        categoryQuery.eq(Category::getStatus, SystemConstants.Category_STATUS_NORMAL);
-        List<Category> categories = list(categoryQuery);
-        return ResponseResult.okResult(BeanCopyUtils.copyBeanList(categories, CategoryVo.class));
+        return ResponseResult.okResult(categoryMapper.listCategoryCount());
     }
 }

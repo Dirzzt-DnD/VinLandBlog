@@ -32,6 +32,19 @@
             AND status = #{status}
         </if>
     </select>
+    <select id="listCategoryCount" resultType="com.warzero.vinlandblog.domain.vo.CategoryVo">
+        SELECT
+          t1.id, t1.name, t1.pid, t2.count
+        FROM
+          category t1
+        LEFT JOIN
+       (SELECT
+         a.category_id, COUNT(*) AS count
+        FROM
+         article a
+        WHERE a.status = 0
+        GROUP BY a.category_id) t2 ON t2.category_id = t1.id
+    </select>
 
 
 </mapper>
