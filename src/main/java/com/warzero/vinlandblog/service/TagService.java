@@ -6,5 +6,5 @@ import com.warzero.vinlandblog.domain.Tag;
 
 
 public interface TagService extends IService<Tag> {
-    ResponseResult getTagList();
+    ResponseResult getTagCount();
 }

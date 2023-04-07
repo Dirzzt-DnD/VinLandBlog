@@ -32,7 +32,7 @@
             AND status = #{status}
         </if>
     </select>
-    <select id="listCategoryCount" resultType="com.warzero.vinlandblog.domain.vo.CategoryVo">
+    <select id="listCategoryCount" resultType="com.warzero.vinlandblog.domain.vo.CategoryCountVo">
         SELECT
           t1.id, t1.name, t1.pid, t2.count
         FROM

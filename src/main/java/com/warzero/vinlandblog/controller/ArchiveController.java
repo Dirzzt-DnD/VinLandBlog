@@ -2,7 +2,7 @@ package com.warzero.vinlandblog.controller;
 
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.VinlandConstant;
-import com.warzero.vinlandblog.service.TagService;
+import com.warzero.vinlandblog.service.ArchiveService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequestMapping(value = VinlandConstant.API_VERSION)
-@Tag(name = "Tag功能")
-public class TagController {
+@Tag(name = "归档管理")
+public class ArchiveController {
 
-    private static final String REQUEST_MODEL = "/tag";
+    public static final String REQUEST_MODEL = "/archive";
 
     @Autowired
-    TagService tagService;
+    private ArchiveService archiveService;
 
-    @Operation(description = "获取评论列表")
-    @RequestMapping(value = REQUEST_MODEL+"/tagCount",method = RequestMethod.GET)
-    private ResponseResult getTagCount(){
-        return tagService.getTagCount();
+    @RequestMapping(value = REQUEST_MODEL+"/archiveCountList",method = RequestMethod.GET)
+    @Operation(description = "归档计数")
+    public ResponseResult getArchiveCountList(Integer pageNum, Integer pageSize){
+        return archiveService.getArchiveCountList(pageNum,pageSize);
     }
-
 }

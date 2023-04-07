@@ -18,7 +18,7 @@ public class TagServiceImp extends ServiceImpl<TagMapper, Tag> implements TagSer
     private TagMapper tagMapper;
 
     @Override
-    public ResponseResult getTagList() {
+    public ResponseResult getTagCount() {
         return ResponseResult.okResult(tagMapper.listArticleTagCount());
     }
 }

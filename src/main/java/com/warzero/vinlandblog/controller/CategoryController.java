@@ -19,8 +19,8 @@ public class CategoryController {
 
     public static final String REQUSET_MODEL = "/category";
 
-    @RequestMapping( value =REQUSET_MODEL+ "/getCategoryList", method = RequestMethod.GET)
+    @RequestMapping( value =REQUSET_MODEL+ "/getCategoryCount", method = RequestMethod.GET)
     public ResponseResult getCategoryList(){
-        return categoryService.getCategoryList();
+        return categoryService.getCategoryCount();
     }
 }

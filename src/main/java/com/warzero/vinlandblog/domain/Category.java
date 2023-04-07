@@ -29,9 +29,6 @@ public class Category implements Serializable {
     @Schema(description = "描述")
     private String description;
 
-    @Schema(description = "是否允许评论")
-    private String isComment;
-
     @Schema(description = "0:是,1:禁用")
     private String status;
 

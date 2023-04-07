@@ -1,11 +1,14 @@
 package com.warzero.vinlandblog.domain.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class CategoryVo {
+@AllArgsConstructor
+@NoArgsConstructor
+public class TagCountVo {
     private Long id;
     private String name;
-    private Long pid;
     private Integer count;
 }
