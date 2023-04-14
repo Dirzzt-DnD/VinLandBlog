@@ -13,4 +13,6 @@ public interface CategoryMapper extends BaseMapper<Category> {
     List<Category> list(Category category);
 
     List<CategoryCountVo> listCategoryCount();
+
+    Category getByCategoryName(String name);
 }

@@ -46,5 +46,15 @@
         GROUP BY a.category_id) t2 ON t2.category_id = t1.id
     </select>
 
+    <select id="getByCategoryName" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            category
+        WHERE
+            1=1
+        AND name = #{name}
+    </select>
+
 
 </mapper>

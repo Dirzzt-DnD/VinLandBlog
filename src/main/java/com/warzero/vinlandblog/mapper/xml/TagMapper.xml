@@ -15,4 +15,13 @@
                WHERE a.status = 0
                GROUP BY tag_id) t2 ON t2.tag_id = t1.id
     </select>
+    <select id="getByName" resultType="com.warzero.vinlandblog.domain.Tag">
+        SELECT
+            *
+        FROM
+            tag
+        where
+            1=1
+        and name = #{name}
+    </select>
 </mapper>

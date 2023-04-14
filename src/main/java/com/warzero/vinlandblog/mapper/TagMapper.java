@@ -11,4 +11,6 @@ import java.util.List;
 public interface TagMapper extends BaseMapper<Tag> {
 
     List<TagCountVo> listArticleTagCount();
+
+    Tag getByName(String name);
 }

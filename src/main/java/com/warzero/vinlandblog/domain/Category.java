@@ -1,6 +1,8 @@
 package com.warzero.vinlandblog.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -34,10 +36,12 @@ public class Category implements Serializable {
 
     private Long createBy;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     private Long updateBy;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date updateTime;
 
     @Schema(description = "是否删除标志")

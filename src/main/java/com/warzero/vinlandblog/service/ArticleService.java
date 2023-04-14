@@ -3,13 +3,20 @@ package com.warzero.vinlandblog.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.domain.Article;
+import com.warzero.vinlandblog.domain.dto.ArticleDto;
 
 public interface ArticleService extends IService<Article> {
-    ResponseResult hotArticle();
+    ResponseResult listHotArticle();
 
-    ResponseResult articleList(Integer pageNum,Integer pageSize, Long categoryId);
+    ResponseResult list(Integer pageNum, Integer pageSize, Long categoryId);
 
-    ResponseResult articleDetail(Long id);
+    ResponseResult getArticleDetail(Long id);
 
-    ResponseResult articleCount();
+    ResponseResult getArticleCount();
+
+    ResponseResult upadateViewCount(Long id);
+
+    ResponseResult getPreviousNextArticle(Long id);
+
+    ResponseResult addArticle(ArticleDto articleDto);
 }

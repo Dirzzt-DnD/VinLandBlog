@@ -3,6 +3,7 @@ package com.warzero.vinlandblog.domain.vo;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class ArticleDetailsVo {
@@ -19,6 +20,8 @@ public class ArticleDetailsVo {
     private String thumbnail;
     //是否允许评论
     private Boolean isComment;
+
+    private List<TagVo> tagVos;
 
     //访问量
     private Long viewCount;

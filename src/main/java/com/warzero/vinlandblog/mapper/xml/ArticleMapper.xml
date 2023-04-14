@@ -33,5 +33,26 @@
             AND category_id = #{categoryId}
         </if>
     </select>
+    <select id="getPreviousArticle" resultType="com.warzero.vinlandblog.domain.Article">
+        SELECT
+            *
+        FROM
+            article
+        WHERE
+            1=1
+        AND DATE_FORMAT(create_time,'%Y-%m-%d') &lt; #{createTime}
+        LIMIT 1
+    </select>
+
+    <select id="getNextArticle" resultType="com.warzero.vinlandblog.domain.Article">
+        SELECT
+            *
+        FROM
+            article
+        WHERE
+            1=1
+          AND DATE_FORMAT(create_time,'%Y-%m-%d') > #{createTime}
+        LIMIT 1
+    </select>
 </mapper>
 

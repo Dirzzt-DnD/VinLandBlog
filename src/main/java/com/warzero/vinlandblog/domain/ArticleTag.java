@@ -22,5 +22,10 @@ public class ArticleTag implements Serializable {
     private Long tagId;
 
     @TableField(exist = false)
-    private Integer count;
+    private Integer count = 0;
+
+    public ArticleTag(Long articleId, Long tagId) {
+        this.articleId = articleId;
+        this.tagId = tagId;
+    }
 }
