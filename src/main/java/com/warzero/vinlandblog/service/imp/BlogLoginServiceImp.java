@@ -52,7 +52,8 @@ public class BlogLoginServiceImp implements BlogLoginService {
         String userId = loginUser.getUser().getId().toString();
         String token  = JwtUtils.createJWT(userId);
         redisCache.setCacheObject(SystemConstants.REDIS_USER_ID_PREFIX + userId, loginUser);
-        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser, UserInfoVo.class);
+        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
+        userInfoVo.setIsAdmin(SystemConstants.ADMIN_USER.equals(loginUser.getUser().getType()));
         BlogUserLoginVo blogUserLoginVo = new BlogUserLoginVo(token,userInfoVo);
         return ResponseResult.okResult(blogUserLoginVo);
     }

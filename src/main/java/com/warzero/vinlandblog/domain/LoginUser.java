@@ -13,8 +13,6 @@ import java.util.Collection;
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
 
-    private static final long serialVersionUID = 1L;
-
 
     private User user;
 

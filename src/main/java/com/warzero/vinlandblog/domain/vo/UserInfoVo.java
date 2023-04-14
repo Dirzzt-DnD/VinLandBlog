@@ -14,5 +14,7 @@ public class UserInfoVo {
 
     private String gender;
 
+    private Boolean isAdmin;
+
     private String email;
 }

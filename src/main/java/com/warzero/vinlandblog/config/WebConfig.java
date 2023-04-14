@@ -5,32 +5,26 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+@Slf4j
+public class WebConfig extends WebMvcAutoConfiguration {
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        // 设置允许跨域的路径
-        registry.addMapping("/**")
-                // 设置允许跨域请求的域名
-                .allowedOriginPatterns("*")
-                // 是否允许cookie
-                .allowCredentials(true)
-                // 设置允许的请求方式
-                .allowedMethods("GET", "POST", "DELETE", "PUT")
-                // 设置允许的header属性
-                .allowedHeaders("*")
-                // 跨域允许时间
-                .maxAge(3600);
-    }
+    @Value("${blog.host}")
+    private String host;
 
     @Bean
     public HttpMessageConverter fastJsonMessageConverts(){
@@ -46,9 +40,19 @@ public class WebConfig implements WebMvcConfigurer {
         HttpMessageConverter<?> converter = fastConverter;
         return converter;
     }
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(fastJsonMessageConverts());
+    private CorsConfiguration corsConfig() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("http://localhost:5173/");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setMaxAge(3600L);
+        return corsConfiguration;
+    }
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig());
+        return new CorsFilter(source);
     }
 }

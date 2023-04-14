@@ -14,12 +14,6 @@ public class SecurityUtils {
     }
 
     public static LoginUser getLoginUser(){
-        String check = (String)getAuthentication().getPrincipal();
-        if(check.equals("anonymousUser")){
-            User user = new User();
-            user.setId(Long.getLong("1"));
-            LoginUser loginUser = new LoginUser(user);
-        }
         return (LoginUser) getAuthentication().getPrincipal();
     }
 
@@ -29,7 +23,13 @@ public class SecurityUtils {
     }
 
     public static Long getUserId() {
-        return getLoginUser().getUser().getId();
+        Long userId = null;
+        try {
+            userId = getLoginUser().getUser().getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userId;
     }
 
 }
