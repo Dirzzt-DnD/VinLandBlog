@@ -41,3 +41,9 @@ knife4j:
     home-custom-location: classpath:markdown/home.md
     enable-footer-custom: true
     footer-custom-content: vinlandblog api文档
+
+blog:
+  host: http://localhost:8803/vinlandblog
+  uploadImgPath: C:/Users/kamri/Desktop/stuff/blog/images/
+  access-img: /uploadimg/**
+  access-img-url: /uploadimg/
