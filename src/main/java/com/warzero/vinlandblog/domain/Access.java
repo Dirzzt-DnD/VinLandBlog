@@ -1,7 +1,11 @@
 package com.warzero.vinlandblog.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,28 +15,39 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Tag implements Serializable {
+@NoArgsConstructor
+@TableName("access")
+public class Access implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableField(fill = FieldFill.INSERT)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    @Schema(description = "权限名")
+    private String accessName;
 
-    @TableField(fill = FieldFill.INSERT)
+    @Schema(description = "权限标识")
+    private String permission;
+
+    @Schema(description = "权限状态")
+    private String status;
+
     private Long createBy;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+
+
     private Long updateBy;
 
     @TableField(fill = FieldFill.INSERT)
     private Date updateTime;
 
-    @Schema(description = "删除标志（0代表未删除，1代表已删除）")
+    @Schema(description = "是否删除标志")
     private Integer delFlag;
+
+    @Schema(description = "备注")
+    private String remark;
 }

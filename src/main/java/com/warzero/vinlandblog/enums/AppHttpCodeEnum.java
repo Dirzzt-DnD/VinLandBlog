@@ -13,6 +13,7 @@ public enum AppHttpCodeEnum {
     REQUIRE_USER_INFO(505,"用户信息不能为空"),
     PARAM_NOT_VALID(506, "请求参数非法");
 
+
     private final int code;
 
     private final String msg;

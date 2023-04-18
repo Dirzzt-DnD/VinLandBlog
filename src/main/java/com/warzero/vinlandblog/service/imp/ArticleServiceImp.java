@@ -173,7 +173,7 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
         newArticle.setStatus(status);
         save(newArticle);
 
-        List<ArticleTag> ArticleTags = new ArrayList<>();
+        List<ArticleTag> articleTags = new ArrayList<>();
         for (String name : articleDto.getTags()) {
 
             Tag tag = tagMapper.getByName(name);
@@ -184,10 +184,19 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
             }
 
             ArticleTag articleTag = new ArticleTag(newArticle.getId(), tag.getId());
-            ArticleTags.add(articleTag);
+            articleTags.add(articleTag);
         }
+        articleTags.forEach(articleTag -> articleTagMapper.insert(articleTag));
 
         return ResponseResult.okResult(newArticle.getId());
+    }
+
+    @Override
+    public ResponseResult editArticle(ArticleDto article) {
+        LambdaQueryWrapper<ArticleTag> articleTagQuery = new LambdaQueryWrapper<>();
+        articleTagQuery.eq(ArticleTag::getArticleId, article.getId());
+        articleTagMapper.delete(articleTagQuery);
+        return addArticle(article);
     }
 
 }

@@ -34,11 +34,13 @@ public class Category implements Serializable {
     @Schema(description = "0:是,1:禁用")
     private String status;
 
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
     @TableField(fill = FieldFill.INSERT)

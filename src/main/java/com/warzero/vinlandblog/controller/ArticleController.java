@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,11 +44,16 @@ public class ArticleController {
 
     @Operation(summary = "发布文章")
     @PostMapping(REQUSET_MODEL)
+    @PreAuthorize("hasAuthority('article:add')")
     public ResponseResult addArticle(@Valid @RequestBody ArticleDto article){
         return articleService.addArticle(article);
     }
 
-
+    @PutMapping(REQUSET_MODEL)
+    @PreAuthorize("hasAuthority('article:edit')")
+    public ResponseResult editArticle(@Valid @RequestBody ArticleDto article){
+        return articleService.editArticle(article);
+    }
 
     @Operation(summary = "文章详细")
     @RequestMapping(value = REQUSET_MODEL+"/{id}",method = RequestMethod.GET)

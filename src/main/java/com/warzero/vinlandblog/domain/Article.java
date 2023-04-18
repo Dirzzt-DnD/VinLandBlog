@@ -54,12 +54,13 @@ public class Article implements Serializable {
     @Schema(description = "是否允许评论")
     private String isComment;
 
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
-
+    @TableField(fill = FieldFill.INSERT)
     private Long updateBy;
 
     @TableField(fill = FieldFill.INSERT)

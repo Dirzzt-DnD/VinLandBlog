@@ -19,4 +19,6 @@ public interface ArticleService extends IService<Article> {
     ResponseResult getPreviousNextArticle(Long id);
 
     ResponseResult addArticle(ArticleDto articleDto);
+
+    ResponseResult editArticle(ArticleDto article);
 }

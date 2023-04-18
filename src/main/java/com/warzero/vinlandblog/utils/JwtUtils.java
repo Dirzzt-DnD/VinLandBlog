@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class JwtUtils {
 
-    //有效时间一个小时
+    //有效时间为15天
     public static final long JWT_TTL = 15* 24 * 60 * 60 * 1000L;
     //设置密钥明文
     public static final String JWT_KEY = "Askeladdke";
