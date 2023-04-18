@@ -171,7 +171,7 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
 
         String status = articleDto.getIsDraft()? SystemConstants.ARTICLE_STATUS_DRAFT : SystemConstants.ARTICLE_STATUS_NORMAL;
         newArticle.setStatus(status);
-        save(newArticle);
+        saveOrUpdate(newArticle);
 
         List<ArticleTag> articleTags = new ArrayList<>();
         for (String name : articleDto.getTags()) {
@@ -186,7 +186,9 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
             ArticleTag articleTag = new ArticleTag(newArticle.getId(), tag.getId());
             articleTags.add(articleTag);
         }
-        articleTags.forEach(articleTag -> articleTagMapper.insert(articleTag));
+        if(articleTags!=null){
+            articleTags.forEach(articleTag -> articleTagMapper.insert(articleTag));
+        }
 
         return ResponseResult.okResult(newArticle.getId());
     }
