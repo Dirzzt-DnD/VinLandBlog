@@ -22,12 +22,6 @@ public class GlobalExceptionHandler {
         return ResponseResult.errorResult(e.getCode(), e.getMsg());
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
-    public ResponseResult methodArgumentExceptionHandler(BindException e){
-        log.error("发生异常",e.getMessage());
-        String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
-        return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_NOT_VALID,message);
-    }
 
 
 }

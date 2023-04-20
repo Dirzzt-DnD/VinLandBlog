@@ -8,6 +8,4 @@ public interface BlogLoginService{
     ResponseResult login(LoginUserDTO user);
 
     ResponseResult loginout();
-
-    ResponseResult register(User user);
 }

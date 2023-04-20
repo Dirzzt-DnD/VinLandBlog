@@ -38,8 +38,8 @@ public class ArticleController {
 
     @Operation(summary = "文章列表")
     @RequestMapping(value = REQUSET_MODEL+"/articleList",method = RequestMethod.GET)
-    public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId){
-        return articleService.list(pageNum,pageSize,categoryId);
+    public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId){
+        return articleService.list(pageNum,pageSize,categoryId, tagId);
     }
 
     @Operation(summary = "发布文章")

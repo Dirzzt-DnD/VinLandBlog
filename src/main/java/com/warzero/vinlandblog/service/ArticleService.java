@@ -8,7 +8,7 @@ import com.warzero.vinlandblog.domain.dto.ArticleDto;
 public interface ArticleService extends IService<Article> {
     ResponseResult listHotArticle();
 
-    ResponseResult list(Integer pageNum, Integer pageSize, Long categoryId);
+    ResponseResult list(Integer pageNum, Integer pageSize, Long categoryId, Long tagId);
 
     ResponseResult getArticleDetail(Long id);
 

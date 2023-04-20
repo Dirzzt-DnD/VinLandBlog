@@ -2,10 +2,14 @@ package com.warzero.vinlandblog.controller;
 
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.VinlandConstant;
+import com.warzero.vinlandblog.domain.User;
 import com.warzero.vinlandblog.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,13 +25,21 @@ public class UserController {
 
     public static final String REQUEST_MODEL = "/user";
 
+    @Operation(summary = "获得管理员")
     @RequestMapping(value = REQUEST_MODEL+"/userInfo", method = RequestMethod.GET)
     public ResponseResult getUserInfo(){
        return userService.getUserInfo();
     }
 
+    @Operation(summary = "获得管理员")
     @RequestMapping(value = REQUEST_MODEL+"/adminInfo",method = RequestMethod.GET)
     public ResponseResult getAdminIfo(){
         return userService.getAdminInfo();
+    }
+
+    @Operation(summary = "注册")
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public ResponseResult register(@Valid @RequestBody User user){
+        return userService.register(user);
     }
 }

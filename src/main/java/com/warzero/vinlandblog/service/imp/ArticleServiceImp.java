@@ -17,11 +17,13 @@ import com.warzero.vinlandblog.domain.vo.HotArticleVo;
 import com.warzero.vinlandblog.domain.vo.PageVo;
 import com.warzero.vinlandblog.domain.vo.PreviousNextArticleVo;
 import com.warzero.vinlandblog.domain.vo.TagVo;
+import com.warzero.vinlandblog.enums.AppHttpCodeEnum;
 import com.warzero.vinlandblog.mapper.ArticleMapper;
 import com.warzero.vinlandblog.mapper.ArticleTagMapper;
 import com.warzero.vinlandblog.mapper.CategoryMapper;
 import com.warzero.vinlandblog.mapper.TagMapper;
 import com.warzero.vinlandblog.service.ArticleService;
+import com.warzero.vinlandblog.utils.Assert;
 import com.warzero.vinlandblog.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,11 +52,11 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
 
     @Override
     public ResponseResult listHotArticle() {
-        // 查询出非草稿、没有被删除的文章，并按照热度降序排序前 10 文章
+        // 查询出非草稿、没有被删除的文章，并按照热度降序排序前 5 文章
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
         wrapper.orderByDesc(Article::getViewCount);
-        // wrapper.last("limit 10");
+        // wrapper.last("limit 5");
 
         Page<Article> page = new Page<>(1, 5);
         this.page(page, wrapper);
@@ -63,8 +65,9 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
         return ResponseResult.okResult(records);
     }
 
+
     @Override
-    public ResponseResult list(Integer pageNum, Integer pageSize, Long categoryId) {
+    public ResponseResult list(Integer pageNum, Integer pageSize, Long categoryId, Long tagId) {
 
         // 构造查询条件
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
@@ -83,14 +86,22 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
             article.setCategoryName(categoryName);
         }
 
+        if (tagId != null) {
+            LambdaQueryWrapper<ArticleTag> tagWrapper = new LambdaQueryWrapper<>();
+            tagWrapper.eq(ArticleTag::getTagId, tagId);
+            List<ArticleTag> articleTags = articleTagMapper.selectList(tagWrapper);
+            wrapper.in(Article::getId, articleTags.stream().map(ArticleTag::getArticleId).collect(Collectors.toList()));
+        }
+
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(articles, ArticleListVo.class);
-        return ResponseResult.okResult(new PageVo<ArticleListVo>(page.getTotal(), articleListVos));
+        return ResponseResult.okResult(new PageVo<>(page.getTotal(), articleListVos));
     }
 
     @Override
     public ResponseResult getArticleDetail(Long id) {
         // 从数据库中查询文章
         Article article = getById(id);
+        Assert.notNull(article, AppHttpCodeEnum.PARAM_NOT_VALID);
         ArticleDetailsVo articleDetailsVO = BeanCopyUtils.copyBean(article, ArticleDetailsVo.class);
 
         // 设置分类名称

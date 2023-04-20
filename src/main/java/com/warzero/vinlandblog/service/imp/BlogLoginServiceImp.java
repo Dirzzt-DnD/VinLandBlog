@@ -12,6 +12,7 @@ import com.warzero.vinlandblog.domain.vo.UserInfoVo;
 import com.warzero.vinlandblog.enums.AppHttpCodeEnum;
 import com.warzero.vinlandblog.mapper.UserMapper;
 import com.warzero.vinlandblog.service.BlogLoginService;
+import com.warzero.vinlandblog.utils.Assert;
 import com.warzero.vinlandblog.utils.BeanCopyUtils;
 import com.warzero.vinlandblog.utils.JwtUtils;
 import com.warzero.vinlandblog.utils.RedisCache;
@@ -30,12 +31,6 @@ public class BlogLoginServiceImp implements BlogLoginService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private RedisCache redisCache;
 
     @Override
@@ -44,9 +39,7 @@ public class BlogLoginServiceImp implements BlogLoginService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                 = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        if (authentication == null) {
-            throw new RuntimeException("用户名或密码错误");
-        }
+        Assert.notNull(user, AppHttpCodeEnum.LOGIN_ERROR);
 
         LoginUser loginUser =(LoginUser) authentication.getPrincipal();
         String userId = loginUser.getUser().getId().toString();
@@ -64,19 +57,6 @@ public class BlogLoginServiceImp implements BlogLoginService {
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String userId = loginUser.getUser().getId().toString();
         redisCache.deleteObject(userId);
-        return ResponseResult.okResult();
-    }
-
-    @Override
-    public ResponseResult register(User user) {
-        LambdaQueryWrapper<User> sameQuery = new LambdaQueryWrapper<>();
-        sameQuery.eq(User::getUserName,user.getUserName());
-        User sameUser = userMapper.getByUserName(user.getUserName());
-        if(sameUser != null){
-            return ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_EXIST);
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userMapper.insert(user);
         return ResponseResult.okResult();
     }
 }

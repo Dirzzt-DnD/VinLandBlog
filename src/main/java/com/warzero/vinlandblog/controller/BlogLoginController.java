@@ -37,9 +37,4 @@ public class BlogLoginController {
         return blogLoginService.loginout();
     }
 
-    @Operation(summary = "注册")
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ResponseResult register(@Valid @RequestBody User user){
-        return blogLoginService.register(user);
-    }
 }
