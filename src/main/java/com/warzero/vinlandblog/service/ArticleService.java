@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.domain.Article;
 import com.warzero.vinlandblog.domain.dto.ArticleDto;
+import com.warzero.vinlandblog.domain.dto.ArticleQueryDto;
 
 public interface ArticleService extends IService<Article> {
     ResponseResult listHotArticle();
 
-    ResponseResult list(Integer pageNum, Integer pageSize, Long categoryId, Long tagId);
+    ResponseResult list(ArticleQueryDto articleQueryDtoDto);
 
     ResponseResult getArticleDetail(Long id);
 

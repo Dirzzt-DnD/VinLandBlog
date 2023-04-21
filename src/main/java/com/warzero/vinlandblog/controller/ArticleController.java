@@ -3,6 +3,7 @@ package com.warzero.vinlandblog.controller;
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.VinlandConstant;
 import com.warzero.vinlandblog.domain.dto.ArticleDto;
+import com.warzero.vinlandblog.domain.dto.ArticleQueryDto;
 import com.warzero.vinlandblog.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,8 +39,8 @@ public class ArticleController {
 
     @Operation(summary = "文章列表")
     @RequestMapping(value = REQUSET_MODEL+"/articleList",method = RequestMethod.GET)
-    public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId){
-        return articleService.list(pageNum,pageSize,categoryId, tagId);
+    public ResponseResult articleList(ArticleQueryDto articleQueryDto) {
+        return articleService.list(articleQueryDto);
     }
 
     @Operation(summary = "发布文章")

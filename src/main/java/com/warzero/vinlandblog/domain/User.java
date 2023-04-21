@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -39,6 +40,7 @@ public class User implements Serializable {
     private String status;
 
     @Schema(description = "邮箱")
+    @Email(message = "邮箱格式错误")
     private String email;
 
     @Schema(description = "手机号")
