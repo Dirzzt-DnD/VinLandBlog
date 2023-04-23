@@ -6,6 +6,8 @@ import com.warzero.vinlandblog.domain.Article;
 import com.warzero.vinlandblog.domain.dto.ArticleDto;
 import com.warzero.vinlandblog.domain.dto.ArticleQueryDto;
 
+import java.util.List;
+
 public interface ArticleService extends IService<Article> {
     ResponseResult listHotArticle();
 
@@ -14,6 +16,8 @@ public interface ArticleService extends IService<Article> {
     ResponseResult getArticleDetail(Long id);
 
     ResponseResult getArticleCount();
+
+    List<Article> listViewCount();
 
     ResponseResult upadateViewCount(Long id);
 

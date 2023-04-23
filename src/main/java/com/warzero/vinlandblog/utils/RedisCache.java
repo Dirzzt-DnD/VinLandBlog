@@ -218,4 +218,17 @@ public class RedisCache {
     public Collection<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
     }
+
+
+    /**
+     * 获取Hash中的数据
+     *
+     * @param key  Redis键
+     * @param hKey Hash键
+     * @param delta 增量
+     * @return 增加后的值
+     */
+    public Long increaseCacheMapValue(final String key, final String hKey, long delta){
+        return redisTemplate.opsForHash().increment(key, hKey, delta);
+    }
 }

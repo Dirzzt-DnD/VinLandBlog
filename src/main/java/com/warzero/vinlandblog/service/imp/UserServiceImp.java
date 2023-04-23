@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.SystemConstants;
 import com.warzero.vinlandblog.domain.User;
+import com.warzero.vinlandblog.domain.dto.UserDto;
 import com.warzero.vinlandblog.domain.vo.UserInfoVo;
 import com.warzero.vinlandblog.enums.AppHttpCodeEnum;
+import com.warzero.vinlandblog.excepetion.SystemException;
 import com.warzero.vinlandblog.mapper.UserMapper;
 import com.warzero.vinlandblog.service.UserService;
 import com.warzero.vinlandblog.utils.BeanCopyUtils;
@@ -55,6 +57,20 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userMapper.insert(user);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult updateUserInfo(UserDto user) {
+        // 查询邮箱是否已经存在
+        LambdaQueryWrapper<User> sameEmailWrapper = new LambdaQueryWrapper<>();
+        sameEmailWrapper.eq(User::getEmail, user.getEmail());
+        User sameEmailUser = getOne(sameEmailWrapper);
+        if (sameEmailUser != null && !user.getId().equals(sameEmailUser.getId())) {
+            throw new SystemException(AppHttpCodeEnum.EMAIL_EXIST);
+        }
+
+        updateById(BeanCopyUtils.copyBean(user, User.class));
         return ResponseResult.okResult();
     }
 }

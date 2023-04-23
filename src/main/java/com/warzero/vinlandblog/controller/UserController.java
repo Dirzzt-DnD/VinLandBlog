@@ -3,12 +3,14 @@ package com.warzero.vinlandblog.controller;
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.VinlandConstant;
 import com.warzero.vinlandblog.domain.User;
+import com.warzero.vinlandblog.domain.dto.UserDto;
 import com.warzero.vinlandblog.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +37,12 @@ public class UserController {
     @RequestMapping(value = REQUEST_MODEL+"/adminInfo",method = RequestMethod.GET)
     public ResponseResult getAdminIfo(){
         return userService.getAdminInfo();
+    }
+
+    @Operation(summary = "更新用户信息")
+    @PutMapping(REQUEST_MODEL+"/userInfo")
+    public ResponseResult updateUserInfo(@Valid @RequestBody UserDto user){
+        return userService.updateUserInfo(user);
     }
 
     @Operation(summary = "注册")

@@ -28,6 +28,7 @@ import com.warzero.vinlandblog.service.ArticleService;
 import com.warzero.vinlandblog.utils.Assert;
 import com.warzero.vinlandblog.utils.BeanCopyUtils;
 import com.warzero.vinlandblog.utils.DateUtils;
+import com.warzero.vinlandblog.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,8 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private RedisCache redisCache;
 
     @Override
     public ResponseResult listHotArticle() {
@@ -153,10 +156,15 @@ public class ArticleServiceImp extends ServiceImpl<ArticleMapper,Article> implem
     }
 
     @Override
+    public List<Article> listViewCount() {
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Article::getId, Article::getViewCount);
+        return list(queryWrapper);
+    }
+
+    @Override
     public ResponseResult upadateViewCount(Long id) {
-        Article article = getById(id);
-        article.setViewCount(article.getViewCount()+1);
-        updateById(article);
+        redisCache.increaseCacheMapValue(SystemConstants.REDIS_ARTICLE_VIEW_COUNT_KEY, id.toString(), 1);
         return ResponseResult.okResult();
     }
 
