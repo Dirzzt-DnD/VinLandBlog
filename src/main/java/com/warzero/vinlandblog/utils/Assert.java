@@ -33,4 +33,16 @@ public class Assert {
             throw new SystemException(httpCodeEnum);
         }
     }
+
+    /**
+     * 断言标志为真
+     * @param flag 标志
+     * @param httpCodeEnum 状态码枚举类
+     * @throws SystemException 系统异常
+     */
+    public static void isTrue(boolean flag, AppHttpCodeEnum httpCodeEnum) {
+        if (!flag) {
+            throw new SystemException(httpCodeEnum);
+        }
+    }
 }

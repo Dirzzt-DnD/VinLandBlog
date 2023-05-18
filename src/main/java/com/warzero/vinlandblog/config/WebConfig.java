@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class WebConfig extends WebMvcAutoConfiguration {
 
-    @Value("${blog.host}")
+    @Value("${blog.cros}")
     private String host;
 
     @Bean
@@ -42,7 +42,7 @@ public class WebConfig extends WebMvcAutoConfiguration {
     }
     private CorsConfiguration corsConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:5173/");
+        corsConfiguration.addAllowedOrigin(host);
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);

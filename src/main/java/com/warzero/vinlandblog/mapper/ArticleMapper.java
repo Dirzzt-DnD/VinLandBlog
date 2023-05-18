@@ -14,4 +14,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     Article getPreviousArticle(Date createTime);
 
     Article getNextArticle(Date createTime);
+
+    int updateImage(Integer id, String urlThumbnail);
 }

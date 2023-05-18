@@ -1,0 +1,46 @@
+spring:
+  logging:
+    level:
+      root: DEBUG
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://localhost:3306/vinlandblog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: administrator
+    password: very_strong_password
+    druid:
+      initial-size: 5
+      max-active: 20
+      max-wait: 60000
+      min-idle: 5
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+
+mybatis-plus:
+  mapper-locations: classpath*:/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+
+knife4j:
+  enable: true
+  setting:
+    enable-home-custom: true
+    home-custom-location: classpath:markdown/home.md
+    enable-footer-custom: true
+    footer-custom-content: vinlandblog api文档
+
+blog:
+  host: http://150.158.164.173/vinlandblog
+  cros: http://150.158.164.173:443/
+  uploadImgPath: /vinlandblog/images/
+  access-img: /uploadimg/**
+  access-img-url: /uploadimg/

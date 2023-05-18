@@ -1,5 +1,7 @@
 package com.warzero.vinlandblog.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -11,27 +13,15 @@ public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(type = IdType.AUTO)
     @Schema(description = "评论id")
     private Long id;
-
-    @Schema(description = "评论类型")
-    private String type;
 
     @Schema(description = "文章id")
     private String articleId;
 
-    @Schema(description = "根评论id")
-    private String rootId;
-
     @Schema(description = "评论内容")
     private String content;
-
-    @Schema(description = "被回复的用户id")
-    private Long toCommentUserId;
-
-    @Schema(description = "被回复的id")
-    private Long toCommentId;
-
 
     private Long createBy;
 

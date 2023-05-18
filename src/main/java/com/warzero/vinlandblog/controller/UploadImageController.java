@@ -3,10 +3,14 @@ package com.warzero.vinlandblog.controller;
 import com.warzero.vinlandblog.common.ResponseResult;
 import com.warzero.vinlandblog.constants.SystemConstants;
 import com.warzero.vinlandblog.constants.VinlandConstant;
+import com.warzero.vinlandblog.domain.Article;
 import com.warzero.vinlandblog.enums.AppHttpCodeEnum;
+import com.warzero.vinlandblog.mapper.ArticleMapper;
+import com.warzero.vinlandblog.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +40,9 @@ public class UploadImageController {
 
     @Value("${blog.access-img-url}")
     private String imgAccessURL;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @PostMapping(REQUSET_MODEL+"/upload")
     @Operation(description = "上传图片")

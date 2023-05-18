@@ -8,6 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,5 +37,15 @@ public class CommentController {
     @RequestMapping(value = REQUEST_MODEL,method = RequestMethod.POST)
     public ResponseResult addComment(@RequestBody Comment comment){
         return commentService.addComment(comment);
+    }
+
+    @PutMapping(REQUEST_MODEL)
+    public ResponseResult updateComment(@RequestBody Comment comment){
+        return commentService.updateComment(comment);
+    }
+
+    @DeleteMapping(REQUEST_MODEL+   "/{id}")
+    public ResponseResult deleteCommand(@PathVariable("id") Long id){
+        return commentService.deleteCommand(id);
     }
 }

@@ -2,6 +2,8 @@ package com.warzero.vinlandblog.utils;
 
 import com.warzero.vinlandblog.domain.LoginUser;
 import com.warzero.vinlandblog.domain.User;
+import com.warzero.vinlandblog.enums.AppHttpCodeEnum;
+import com.warzero.vinlandblog.excepetion.SystemException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,9 +29,11 @@ public class SecurityUtils {
         try {
             userId = getLoginUser().getUser().getId();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new SystemException(AppHttpCodeEnum.NEED_LOGIN);
         }
         return userId;
     }
+
+
 
 }
